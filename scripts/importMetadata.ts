@@ -5,12 +5,10 @@ console.log('📥 Importing Quran Metadata...')
 
 const db = new Database('server/db/quran.db')
 
-// پاک کردن جداول قدیمی
 db.exec(`DROP TABLE IF EXISTS surahs;`)
 db.exec(`DROP TABLE IF EXISTS juzs;`)
 db.exec(`DROP TABLE IF EXISTS pages;`)
 
-// ساخت جدول سوره‌ها
 db.exec(`
   CREATE TABLE surahs (
     number INTEGER PRIMARY KEY,
@@ -25,7 +23,6 @@ db.exec(`
   );
 `)
 
-// ساخت جدول اجزاء
 db.exec(`
   CREATE TABLE juzs (
     juz_number INTEGER PRIMARY KEY,
@@ -34,7 +31,6 @@ db.exec(`
   );
 `)
 
-// ساخت جدول صفحات
 db.exec(`
   CREATE TABLE pages (
     page_number INTEGER PRIMARY KEY,
@@ -45,7 +41,6 @@ db.exec(`
 
 console.log('✅ Tables created!')
 
-// خواندن JSON
 const QuranData = JSON.parse(readFileSync('data/quran-metadata.json', 'utf-8'))
 
 console.log('📊 Inserting Surahs...')

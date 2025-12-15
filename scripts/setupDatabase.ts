@@ -1,4 +1,3 @@
-// scripts/setupDatabase.ts:
 import Database from 'better-sqlite3'
 import { readFileSync, existsSync, unlinkSync } from 'fs'
 
@@ -26,14 +25,12 @@ try {
 
 console.log('🔍 Counting records...')
 try {
-  // روش امن با cast + چِک
   const qRow = db.prepare('SELECT COUNT(*) AS n FROM quran_text').get() as { n: number } | undefined
   const tRow = db.prepare('SELECT COUNT(*) AS n FROM fa_ghomshei').get() as { n: number } | undefined
 
   const qCount = qRow?.n ?? 0
   const tCount = tRow?.n ?? 0
 
-  // اولی ممکنه undefined باشه، پس چک می‌کنیم
   let first: { id: number; sura: number; aya: number; text: string } | undefined
   try {
     first = db.prepare('SELECT * FROM quran_text LIMIT 1').get() as
